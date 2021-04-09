@@ -4,11 +4,6 @@ using System.Collections.Generic;
 class MainClass {
 
   public static void Main (string[] args) {
-    Registry.InitializeRooms();
-    
-    foreach(var item in Cellar0){
-      Console.Write(item);
-    }
     UpdateScreen();
   }
 
@@ -93,7 +88,7 @@ public class Room {
 }
 
 public static class Util {
-  public string FormatText(string text) {
+  public static string FormatText(string text) {
     string indent = "    ";
     string newLine = "\r\n";
     return indent + text + newLine;
