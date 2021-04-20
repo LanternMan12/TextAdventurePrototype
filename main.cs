@@ -12,11 +12,6 @@ class MainClass {
   // Rooms
   public static Room Cellar0;
 
-  // Items
-  public static Item Drapes;
-  public static Item JewelryBox;
-  public static Item PearlNecklace;
-
   // Player
   public static EntityPlayer Player;
 
@@ -57,12 +52,6 @@ class MainClass {
       Cellar0.Start();
 
       Room.roomList = new string[Room.roomCount];
-
-    // Items
-      // Drapes
-      Drapes = new Item("Drapes", "Some red, musty drapes", false);
-      JewelryBox = new Item("Jewelry Box", "An ornate jewelry box", true);
-      PearlNecklace = new Item("Pearl Necklace", "Shiny and valuable", true);
 
     // Instantize player
     Player = new EntityPlayer();
@@ -205,31 +194,6 @@ public class Room {
     description = dsc;
     RoomID = rid;
     currentRoom = cur;
-  }
-}
-
-// Item class is currently unused and being developed
-public class Item {
-  public string name;
-  public string description;
-  public bool hidden;
-
-  public void toggleHidden() {
-    this.hidden = Util.ToggleBool(this.hidden);
-  }
-
-  public void hideItem() {
-    this.hidden = true;
-  }
-
-  public void unhideItem() {
-    this.hidden = false;
-  }
-
-  public Item(string name, string desctiption, bool hidden) {
-    this.name = name;
-    this.description = description;
-    this.hidden = hidden;
   }
 }
 
