@@ -7,14 +7,13 @@ class MainClass {
   public static bool skipPrompt = false;
   public static bool breakUpdate = false;
 
-  public static string defaultRoom = "Cellar0";
-
-  // Rooms
-  public static Room Cellar0;
-
   // Player
   public static EntityPlayer Player;
 
+  // Rooms
+  public static Room Cellar0;
+  public static string defaultRoom = "Cellar0";
+  
   public static void Main (string[] args) {
     // Setup
     Console.Clear();
@@ -74,7 +73,7 @@ class MainClass {
 // Majority of the game's funcitonality occurs here
 public class InputProcessing {
 
-  public static string[] InputOptions = { "Help", "Move", "Inspect", "Save", "Exit", "", "", "" };
+  public static string[] InputOptions = { "Help", "", "Inspect", "", "", "", "", "" };
 
   // The input processor
   // Takes in an input, passes it through one nasty switch block, 
@@ -85,10 +84,7 @@ public class InputProcessing {
     }
     MainClass.skipPrompt = true;
     switch (input) {
-      case "Help": return "Your options are: " + Util.WriteArray(InputOptions, true, false);
-      case "Move": return MovePlayer();
-      case "Save": return SaveGame();
-      case "Exit": return "3";
+      case "Help": return WriteOptions();
       case "Inspect": return BeginInspectLoop(MainClass.Cellar0.items);
       case "Move Drapes": 
         RemoveInputOption("Move Drapes");
@@ -103,14 +99,8 @@ public class InputProcessing {
   // Input behaviour methods 
   // These methods are called in a switch block in ProcessInput
   // Each method must return a string
-  public static string MovePlayer() {
-    return "You can't move right now";
-  }
-  public static string SaveGame() {
-    return MainClass.Player.DescribeCurrentRoom();
-  }
-  public static string ExitGame() {
-    return "Nah, you can keep playing for a bit";
+  public static string WriteOptions() {
+    return "Your options are: " + Util.WriteArray(InputOptions, true, false);
   }
   public static string MoveDrapes() {
     return "You found a jewelry box!" + AddInputOption("Open Jewelry Box");
@@ -155,7 +145,7 @@ public class InputProcessing {
     for(int i = 0; i < InputOptions.Length; i++ ) {
       if(InputOptions[i].Length == 0) {
         InputOptions[i] = option;
-        return Util.newLine + Util.indent + "You can now: " + option;
+        return Util.newLine + Util.indent + "You can now: " + option + Util.newLine + Util.indent + WriteOptions();
       }
     }
     return null;
@@ -200,11 +190,9 @@ public class Room {
 // The player class is instantiated once and tracks where the player is,
 // what's in their inventory, etc
 public class EntityPlayer {
-  public int health = 0;
   public Room currentRoom;
 
   public EntityPlayer() {
-    health = 10;
   }
 
   public string DescribeCurrentRoom() {
