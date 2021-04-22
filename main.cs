@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
+// CreateTask Branch
 
-// This is a main class
-// Idk what else to say about it, it's main class
+// MainClass is where the player and room data is stored
 class MainClass {
   public static bool skipPrompt = false;
   public static bool breakUpdate = false;
@@ -15,16 +15,21 @@ class MainClass {
   public static string defaultRoom = "Cellar0";
   
   public static void Main (string[] args) {
-    // Setup
-    Console.Clear();
-    RegisterInstances();
+    // Is ProcessInput working?
+    // If it is, this will return true
+    if(InputProcessing.ProcessInput("Help") == InputProcessing.WriteOptions()) {
+      // Setup
+      Console.Clear();
+      RegisterInstances();
 
-    /* Start text (hidden because it's long as hell) */ {
-      Util.Write("Welcome to Pearls! This is a prototype/ framework for a text adventure game. This iteration of the game may just have one path, but there's no telling what it could become in the future. At any point if you need help, type 'Help' into the console.");
+      {
+        Util.Write("Welcome to Tapro's Cellar! This is a prototype/ framework for a text adventure game. This iteration of the game may just have one path, but there's no telling what it could become in the future. At any point if you need help, type 'Help' into the console.");
+      }
+
+      // Start the UpdateScreen() loop
+      UpdateScreen(breakUpdate);
     }
-
-    // Start the UpdateScreen() loop
-    UpdateScreen(breakUpdate);
+    Util.Write("The game could not be loaded. Try again.");
   }
 
     // UpdateScreen is a loop that displays the prompt and room description, then asks for the player to input something.
@@ -74,7 +79,7 @@ class MainClass {
 // Majority of the game's funcitonality occurs here
 public class InputProcessing {
 
-  public static string[] InputOptions = { "Help", "", "Inspect", "", "", "", "", "" };
+  public static string[] InputOptions = { "Help", "Inspect", "", "", "", "", "", "" };
 
   // The input processor
   // Takes in an input, passes it through one nasty switch block, 
@@ -156,7 +161,7 @@ public class InputProcessing {
         return Util.newLine + Util.indent + "You can now: " + option + Util.newLine + Util.indent + WriteOptions();
       }
     }
-    return null;
+    return "";
   }
 
     // Removes an input option from the list of options
